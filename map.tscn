@@ -1,6 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://bspvtwinenbtf"]
+[gd_scene load_steps=8 format=3 uid="uid://bspvtwinenbtf"]
 
 [ext_resource type="TileSet" uid="uid://0b7h71c6e8sl" path="res://Map.tres" id="1_v7llm"]
+[ext_resource type="PackedScene" uid="uid://l23c7mgoo0ew" path="res://Player/comp.tscn" id="4_y1iya"]
 [ext_resource type="PackedScene" uid="uid://cy1pd7d2s15si" path="res://Player/Player_tower.tscn" id="5_hmb32"]
 [ext_resource type="PackedScene" uid="uid://daqnmlfnhpe12" path="res://attack.tscn" id="6_3kjpr"]
 [ext_resource type="PackedScene" uid="uid://bh0lb5yxfgvu8" path="res://tower_grey.tscn" id="6_3l5dv"]
@@ -46,6 +47,16 @@ layer_3/tile_data = PackedInt32Array(262140, 131073, 2, 196604, 131073, 0, 19660
 [node name="Camera2D" type="Camera2D" parent="TileMap"]
 position = Vector2(808, 304)
 zoom = Vector2(0.4, 0.4)
+
+[node name="AnimatedSprite2D" parent="." instance=ExtResource("6_3kjpr")]
+position = Vector2(824, -112)
+
+[node name="Troop" parent="." instance=ExtResource("8_5utg3")]
+position = Vector2(992, 384)
+collision_priority = 2.0
+
+[node name="comp" parent="." instance=ExtResource("4_y1iya")]
+position = Vector2(-272, -212)
 
 [node name="Tower and players" type="Node2D" parent="."]
 
@@ -118,9 +129,7 @@ position = Vector2(1204, 536)
 [node name="TowerGrey22" parent="Tower and players/Farm" instance=ExtResource("6_3l5dv")]
 position = Vector2(1212, 768)
 
-[node name="Player" type="Node2D" parent="Tower and players"]
-
-[node name="blue_tower" parent="Tower and players/Player" instance=ExtResource("5_hmb32")]
+[node name="blue_tower" parent="Tower and players" instance=ExtResource("5_hmb32")]
 position = Vector2(-456, 160)
 
 [node name="blue_castle" parent="Tower and players/Player" instance=ExtResource("6_f4piv")]
