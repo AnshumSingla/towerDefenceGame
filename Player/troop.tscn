@@ -1,7 +1,39 @@
 [gd_scene load_steps=28 format=3 uid="uid://dwxxbhglnw4m0"]
 
-[ext_resource type="Script" path="res://Player/troop.gd" id="1_nho6y"]
 [ext_resource type="Texture2D" uid="uid://x8wu8uk1b17u" path="res://Tiny Swords/Tiny Swords (Update 010)/Factions/Knights/Troops/Warrior/Purple/Warrior_Purple.png" id="2_h43lr"]
+
+[sub_resource type="GDScript" id="GDScript_ig30a"]
+script/source = "extends CharacterBody2D
+
+const SPEED = 300.0
+var target = Vector2.ZERO
+@onready var anim = get_node('AnimationPlayer')
+
+func _physics_process(delta):
+	
+	if Input.is_mouse_button_pressed(1): # when click Left mouse button
+		target = get_global_mouse_position()
+		
+	velocity = global_position.direction_to(target) * SPEED
+	
+	if Input.is_action_just_pressed(\"ui_accept\") :
+		anim.play('Attack')
+	
+	
+	#
+	if global_position.distance_to(target) < 10:
+		anim.play('Idle')
+		velocity = Vector2.ZERO
+	elif global_position.distance_to(target) > 5:
+		
+		anim.play('Run')
+	#else:
+		#anim.play(\"Idle\")
+		
+		
+		
+	move_and_slide()
+"
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_l2lmw"]
 radius = 27.0
@@ -156,6 +188,34 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="Animation" id="Animation_u1jyf"]
+resource_name = "Attack"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"Attack"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+
 [sub_resource type="Animation" id="Animation_unmyk"]
 resource_name = "Idle"
 length = 0.7
@@ -183,6 +243,33 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [0, 1, 2, 3, 4, 5, 5]
+}
+
+[sub_resource type="Animation" id="Animation_vksdo"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"Idle"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
 }
 
 [sub_resource type="Animation" id="Animation_tmkqp"]
@@ -214,61 +301,6 @@ tracks/1/keys = {
 "values": [0, 1, 4, 5, 5]
 }
 
-[sub_resource type="Animation" id="Animation_u1jyf"]
-resource_name = "Attack"
-length = 0.6
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite2D:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [&"Attack"]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("AnimatedSprite2D:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 3, 4, 5]
-}
-
-[sub_resource type="Animation" id="Animation_vksdo"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite2D:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [&"Idle"]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("AnimatedSprite2D:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_juwie"]
 _data = {
 "Attack": SubResource("Animation_u1jyf"),
@@ -278,7 +310,7 @@ _data = {
 }
 
 [node name="Troop" type="CharacterBody2D"]
-script = ExtResource("1_nho6y")
+script = SubResource("GDScript_ig30a")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_l2lmw")

@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://bh0lb5yxfgvu8"]
+
+[ext_resource type="Texture2D" uid="uid://dddy0guna1yhc" path="res://Tiny Swords/Tiny Swords (Update 010)/Factions/Knights/Buildings/Tower/Tower_Grey.png" id="1_gogwl"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_as3m8"]
+radius = 40.0
+
+[node name="TowerGrey" type="Sprite2D"]
+position = Vector2(136, -352)
+texture = ExtResource("1_gogwl")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, 72)
+scale = Vector2(1, 0.75)
+shape = SubResource("CircleShape2D_as3m8")
