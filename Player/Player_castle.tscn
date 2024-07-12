@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://c468lelupb7m7"]
+
+[ext_resource type="Texture2D" uid="uid://dbpx4ko5qn4bc" path="res://Tiny Swords/Tiny Swords (Update 010)/Factions/Knights/Buildings/Castle/Castle_Blue.png" id="1_fltj0"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xsnca"]
+radius = 32.0
+height = 272.0
+
+[node name="StaticBody2D" type="StaticBody2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(360, 192)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_xsnca")
+
+[node name="CastleBlue" type="Sprite2D" parent="."]
+position = Vector2(360, 120)
+texture = ExtResource("1_fltj0")

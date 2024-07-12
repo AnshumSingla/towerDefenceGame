@@ -2,6 +2,9 @@
 
 [ext_resource type="Texture2D" uid="uid://qfw2earehi5a" path="res://Tiny Swords/Tiny Swords (Update 010)/Factions/Goblins/Buildings/Wood_Tower/Wood_Tower_Grey.png" id="1_7jodp"]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_jrfcc"]
+radius = 26.6667
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_ngt8b"]
 atlas = ExtResource("1_7jodp")
 region = Rect2(0, 0, 256, 192)
@@ -54,21 +57,16 @@ func _enter_tree():
 	self.play(\"default\")
 "
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3jjxr"]
-radius = 38.8853
-height = 131.669
+[node name="StaticBody2D" type="StaticBody2D"]
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D"]
-position = Vector2(480, 248)
-scale = Vector2(1.5, 1.543)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 64)
+rotation = 1.5708
+scale = Vector2(1.5, 1.5)
+shape = SubResource("CircleShape2D_jrfcc")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(1.5, 1.5)
 sprite_frames = SubResource("SpriteFrames_wj30b")
 frame_progress = 0.601173
 script = SubResource("GDScript_tun0q")
-
-[node name="Area2D" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(-2.66669, 44.07)
-rotation = 1.5708
-scale = Vector2(0.666667, 0.648088)
-shape = SubResource("CapsuleShape2D_3jjxr")
