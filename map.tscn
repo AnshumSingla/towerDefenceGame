@@ -1,7 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://bspvtwinenbtf"]
+[gd_scene load_steps=16 format=3 uid="uid://bspvtwinenbtf"]
 
 [ext_resource type="TileSet" uid="uid://0b7h71c6e8sl" path="res://Map.tres" id="1_v7llm"]
-[ext_resource type="PackedScene" uid="uid://l23c7mgoo0ew" path="res://Player/comp.tscn" id="4_y1iya"]
+[ext_resource type="PackedScene" path="res://Player/comp.tscn" id="4_y1iya"]
 [ext_resource type="PackedScene" uid="uid://cy1pd7d2s15si" path="res://Player/Player_tower.tscn" id="5_hmb32"]
 [ext_resource type="PackedScene" uid="uid://daqnmlfnhpe12" path="res://attack.tscn" id="6_3kjpr"]
 [ext_resource type="PackedScene" uid="uid://bh0lb5yxfgvu8" path="res://tower_grey.tscn" id="6_3l5dv"]
@@ -9,6 +9,9 @@
 [ext_resource type="PackedScene" uid="uid://da66fcs571x5e" path="res://AI/AI_castle.tscn" id="7_0ibxb"]
 [ext_resource type="PackedScene" uid="uid://dwxxbhglnw4m0" path="res://Player/troop.tscn" id="8_5utg3"]
 [ext_resource type="PackedScene" uid="uid://cbvxk3ftsvxmd" path="res://AI/AI_tower.tscn" id="8_gujan"]
+[ext_resource type="Texture2D" uid="uid://c8hgtfd23lms7" path="res://Tiny Swords/Tiny Swords (Update 010)/UI/Buttons/Button_Blue.png" id="10_u2s3q"]
+[ext_resource type="Texture2D" uid="uid://2wuvdqi0rdp1" path="res://Tiny Swords/Tiny Swords (Update 010)/UI/Buttons/Button_Blue_Pressed.png" id="11_ujx0f"]
+[ext_resource type="Texture2D" uid="uid://csrt77c72spca" path="res://Tiny Swords/Tiny Swords (Update 010)/UI/Icons/Regular_01.png" id="12_2tkfd"]
 
 [sub_resource type="GDScript" id="GDScript_joh6a"]
 script/source = "extends Node2D
@@ -33,6 +36,28 @@ func check_owner():
 	pass
 "
 
+[sub_resource type="Shortcut" id="Shortcut_y3uer"]
+
+[sub_resource type="GDScript" id="GDScript_g6lyw"]
+script/source = "extends TextureRect
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
+
+
+
+
+func _on_texture_button_pressed():
+	get_tree().change_scene_to_file(\"res://main.tscn\")
+"
+
 [node name="map" type="Node2D"]
 script = SubResource("GDScript_joh6a")
 
@@ -47,9 +72,6 @@ layer_3/tile_data = PackedInt32Array(262140, 131073, 2, 196604, 131073, 0, 19660
 [node name="Camera2D" type="Camera2D" parent="TileMap"]
 position = Vector2(808, 304)
 zoom = Vector2(0.4, 0.4)
-
-[node name="AnimatedSprite2D" parent="." instance=ExtResource("6_3kjpr")]
-position = Vector2(824, -112)
 
 [node name="Troop" parent="." instance=ExtResource("8_5utg3")]
 position = Vector2(992, 384)
@@ -129,28 +151,13 @@ position = Vector2(1204, 536)
 [node name="TowerGrey22" parent="Tower and players/Farm" instance=ExtResource("6_3l5dv")]
 position = Vector2(1212, 768)
 
-[node name="blue_tower" parent="Tower and players" instance=ExtResource("5_hmb32")]
-position = Vector2(-456, 160)
-
-[node name="blue_castle" parent="Tower and players/Player" instance=ExtResource("6_f4piv")]
-position = Vector2(-736, 8)
-
-[node name="Troops" type="Node2D" parent="Tower and players"]
-
-[node name="Troop2" parent="Tower and players/Troops" instance=ExtResource("8_5utg3")]
-position = Vector2(944, -160)
-
-[node name="Troop" parent="Tower and players/Troops" instance=ExtResource("8_5utg3")]
-position = Vector2(992, 384)
-collision_priority = 2.0
-
 [node name="Attack_towers" type="Node2D" parent="Tower and players"]
 
-[node name="attack" parent="Tower and players/Attack_towers" instance=ExtResource("6_3kjpr")]
-position = Vector2(840, -272)
-
 [node name="attack2" parent="Tower and players/Attack_towers" instance=ExtResource("6_3kjpr")]
-position = Vector2(848, 640)
+position = Vector2(824, -104)
+
+[node name="attack3" parent="Tower and players/Attack_towers" instance=ExtResource("6_3kjpr")]
+position = Vector2(848, 696)
 
 [node name="AI" type="Node2D" parent="Tower and players"]
 
@@ -159,3 +166,37 @@ position = Vector2(1488, 8)
 
 [node name="Tower" parent="Tower and players/AI" instance=ExtResource("8_gujan")]
 position = Vector2(1264, 64)
+
+[node name="Player" type="Node2D" parent="Tower and players"]
+
+[node name="blue_tower" parent="Tower and players/Player" instance=ExtResource("5_hmb32")]
+position = Vector2(-456, 160)
+
+[node name="Tower and players_Player#blue_castle" parent="Tower and players/Player" instance=ExtResource("6_f4piv")]
+position = Vector2(-736, 8)
+
+[node name="TextureButton" type="TextureButton" parent="."]
+offset_left = -584.0
+offset_top = -472.0
+offset_right = -352.0
+offset_bottom = -256.0
+shortcut = SubResource("Shortcut_y3uer")
+texture_normal = ExtResource("10_u2s3q")
+texture_pressed = ExtResource("11_ujx0f")
+stretch_mode = 0
+
+[node name="TextureRect" type="TextureRect" parent="TextureButton"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.207
+anchor_top = 0.111
+anchor_right = 0.793
+anchor_bottom = 0.778
+offset_left = -16.024
+offset_top = -15.976
+offset_right = 16.024
+offset_bottom = 31.952
+texture = ExtResource("12_2tkfd")
+script = SubResource("GDScript_g6lyw")
+
+[connection signal="pressed" from="TextureButton" to="TextureButton/TextureRect" method="_on_texture_button_pressed"]

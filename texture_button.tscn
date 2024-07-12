@@ -1,0 +1,48 @@
+[gd_scene load_steps=6 format=3 uid="uid://c7ch2ov8xn6hn"]
+
+[ext_resource type="Texture2D" uid="uid://c8hgtfd23lms7" path="res://Tiny Swords/Tiny Swords (Update 010)/UI/Buttons/Button_Blue.png" id="1_s1gdt"]
+[ext_resource type="Texture2D" uid="uid://2wuvdqi0rdp1" path="res://Tiny Swords/Tiny Swords (Update 010)/UI/Buttons/Button_Blue_Pressed.png" id="2_jc4px"]
+[ext_resource type="Texture2D" uid="uid://csrt77c72spca" path="res://Tiny Swords/Tiny Swords (Update 010)/UI/Icons/Regular_01.png" id="3_4fmnp"]
+[ext_resource type="Texture2D" uid="uid://bsnkyasour0jw" path="res://Tiny Swords/Tiny Swords (Update 010)/UI/Icons/Pressed_01.png" id="4_ab1i7"]
+
+[sub_resource type="GDScript" id="GDScript_j6ia4"]
+script/source = "extends TextureButton
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
+
+
+func _on_pressed():
+	pass # Replace with function body.
+"
+
+[node name="TextureButton" type="TextureButton"]
+process_priority = 1
+anchors_preset = -1
+anchor_left = 0.007
+anchor_right = 0.049
+anchor_bottom = 0.086
+offset_left = -8.064
+offset_right = -0.448002
+offset_bottom = 0.271999
+texture_normal = ExtResource("1_s1gdt")
+texture_pressed = ExtResource("2_jc4px")
+ignore_texture_size = true
+script = SubResource("GDScript_j6ia4")
+
+[node name="TextureButton" type="TextureButton" parent="."]
+layout_mode = 0
+offset_right = 56.0
+offset_bottom = 56.0
+texture_normal = ExtResource("3_4fmnp")
+texture_pressed = ExtResource("4_ab1i7")
+ignore_texture_size = true
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]
