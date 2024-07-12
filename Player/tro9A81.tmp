@@ -30,15 +30,12 @@ func _physics_process(delta):
 	#else:
 		#anim.play(\"Idle\")
 
-	move_and_slide()
-
-
-
-
+	move_and_collide(velocity*delta)
 "
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_clrfj"]
-radius = 8.0
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_l2lmw"]
+radius = 27.0
+height = 78.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5s7n4"]
 atlas = ExtResource("2_h43lr")
@@ -315,7 +312,7 @@ platform_floor_layers = 0
 script = SubResource("GDScript_ig30a")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_clrfj")
+shape = SubResource("CapsuleShape2D_l2lmw")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(1, 0.999996)
