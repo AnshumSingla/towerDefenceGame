@@ -1,13 +1,39 @@
-[gd_scene load_steps=7 format=3 uid="uid://bspvtwinenbtf"]
+[gd_scene load_steps=10 format=3 uid="uid://bspvtwinenbtf"]
 
 [ext_resource type="TileSet" uid="uid://0b7h71c6e8sl" path="res://Map.tres" id="1_v7llm"]
 [ext_resource type="PackedScene" uid="uid://cy1pd7d2s15si" path="res://Player/Player_tower.tscn" id="5_hmb32"]
 [ext_resource type="PackedScene" uid="uid://daqnmlfnhpe12" path="res://attack.tscn" id="6_3kjpr"]
 [ext_resource type="PackedScene" uid="uid://bh0lb5yxfgvu8" path="res://tower_grey.tscn" id="6_3l5dv"]
 [ext_resource type="PackedScene" uid="uid://c468lelupb7m7" path="res://Player/Player_castle.tscn" id="6_f4piv"]
+[ext_resource type="PackedScene" uid="uid://da66fcs571x5e" path="res://AI/AI_castle.tscn" id="7_0ibxb"]
 [ext_resource type="PackedScene" uid="uid://dwxxbhglnw4m0" path="res://Player/troop.tscn" id="8_5utg3"]
+[ext_resource type="PackedScene" uid="uid://cbvxk3ftsvxmd" path="res://AI/AI_tower.tscn" id="8_gujan"]
+
+[sub_resource type="GDScript" id="GDScript_joh6a"]
+script/source = "extends Node2D
+var tower_neutral_count_initial = 20
+var tower_player = \"res://Tiny Swords/Tiny Swords (Update 010)/Factions/Knights/Buildings/Tower/Tower_Blue.png\"
+var tower_neutral = \"res://Tiny Swords/Tiny Swords (Update 010)/Factions/Knights/Buildings/Tower/Tower_Grey.png\"
+var tower_AI = \"res://Tiny Swords/Tiny Swords (Update 010)/Factions/Knights/Buildings/Tower/Tower_Red.png\"
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
+	
+func delete_troop():
+	pass
+	
+func check_owner():
+	pass
+"
 
 [node name="map" type="Node2D"]
+script = SubResource("GDScript_joh6a")
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = ExtResource("1_v7llm")
@@ -21,17 +47,7 @@ layer_3/tile_data = PackedInt32Array(262140, 131073, 2, 196604, 131073, 0, 19660
 position = Vector2(808, 304)
 zoom = Vector2(0.4, 0.4)
 
-[node name="AnimatedSprite2D" parent="." instance=ExtResource("6_3kjpr")]
-position = Vector2(824, -112)
-
-[node name="Troop" parent="." instance=ExtResource("8_5utg3")]
-position = Vector2(992, 384)
-collision_priority = 2.0
-
 [node name="Tower and players" type="Node2D" parent="."]
-
-[node name="attack" parent="Tower and players" instance=ExtResource("6_3kjpr")]
-position = Vector2(840, 464)
 
 [node name="Farm" type="Node2D" parent="Tower and players"]
 position = Vector2(-120, 320)
@@ -102,11 +118,35 @@ position = Vector2(1204, 536)
 [node name="TowerGrey22" parent="Tower and players/Farm" instance=ExtResource("6_3l5dv")]
 position = Vector2(1212, 768)
 
-[node name="Troop2" parent="Tower and players" instance=ExtResource("8_5utg3")]
-position = Vector2(944, -160)
+[node name="Player" type="Node2D" parent="Tower and players"]
 
-[node name="blue_tower" parent="Tower and players" instance=ExtResource("5_hmb32")]
+[node name="blue_tower" parent="Tower and players/Player" instance=ExtResource("5_hmb32")]
 position = Vector2(-456, 160)
 
-[node name="blue_castle" parent="Tower and players" instance=ExtResource("6_f4piv")]
+[node name="blue_castle" parent="Tower and players/Player" instance=ExtResource("6_f4piv")]
 position = Vector2(-736, 8)
+
+[node name="Troops" type="Node2D" parent="Tower and players"]
+
+[node name="Troop2" parent="Tower and players/Troops" instance=ExtResource("8_5utg3")]
+position = Vector2(944, -160)
+
+[node name="Troop" parent="Tower and players/Troops" instance=ExtResource("8_5utg3")]
+position = Vector2(992, 384)
+collision_priority = 2.0
+
+[node name="Attack_towers" type="Node2D" parent="Tower and players"]
+
+[node name="attack" parent="Tower and players/Attack_towers" instance=ExtResource("6_3kjpr")]
+position = Vector2(840, -272)
+
+[node name="attack2" parent="Tower and players/Attack_towers" instance=ExtResource("6_3kjpr")]
+position = Vector2(848, 640)
+
+[node name="AI" type="Node2D" parent="Tower and players"]
+
+[node name="Castle" parent="Tower and players/AI" instance=ExtResource("7_0ibxb")]
+position = Vector2(1488, 8)
+
+[node name="Tower" parent="Tower and players/AI" instance=ExtResource("8_gujan")]
+position = Vector2(1264, 64)
