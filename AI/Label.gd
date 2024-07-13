@@ -1,19 +1,11 @@
 extends Label
-var tower_red_count = 0
+var troop_count: float = 0
+var count := int(troop_count)
 
+func _process(delta: float) -> void:
+	count = int(troop_count)
+	text = str(count)
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	var display = int(tower_red_count)
-
-	var count_blue := str(display)
-	text = count_blue
-
-func _physics_process(delta):
-	tower_red_count+=delta*1.2
-	pass
+func _physics_process(delta: float) -> void:
+	if(troop_count <= 40):
+		troop_count += delta*1.2

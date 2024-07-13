@@ -4,6 +4,7 @@ const ME = "red"
 const SPEED = 300.0
 var target := Vector2.ZERO
 @onready var anim := get_node('AnimationPlayer')
+var TO: StaticBody2D = null
 
 func _physics_process(delta: float) -> void:
 	velocity = global_position.direction_to(target) * SPEED

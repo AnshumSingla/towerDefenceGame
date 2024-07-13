@@ -1,0 +1,32 @@
+[gd_scene load_steps=4 format=3 uid="uid://cy1pd7d2s15si"]
+
+[ext_resource type="Texture2D" uid="uid://1nia37xhayvs" path="res://Tiny Swords/Tiny Swords (Update 010)/Factions/Knights/Buildings/Tower/Tower_Blue.png" id="1_ibay2"]
+[ext_resource type="Script" path="res://Player/Label.gd" id="2_owrv4"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mk42w"]
+radius = 32.0
+
+[node name="StaticBody2D" type="StaticBody2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(392, 128)
+shape = SubResource("CircleShape2D_mk42w")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(392, 128)
+shape = SubResource("CircleShape2D_mk42w")
+
+[node name="TowerBlue" type="Sprite2D" parent="Area2D"]
+position = Vector2(392, 56)
+texture = ExtResource("1_ibay2")
+
+[node name="Label" type="Label" parent="."]
+offset_left = 384.0
+offset_top = 48.0
+offset_right = 405.0
+offset_bottom = 99.0
+theme_override_font_sizes/font_size = 37
+text = "0"
+script = ExtResource("2_owrv4")

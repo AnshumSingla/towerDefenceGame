@@ -10,8 +10,13 @@ var troop_count: float = 0
 
 func _ready() -> void:
 	playerTower.occ = \"blue\"
-	playerTower.tower_grey_count = 0
-	$\"StaticBody2D2/AnimatedSprite2D\".play(\"blue\")
+
+func _process(delta: float) -> void:
+	playerTower.tower_grey_count = int(troop_count)
+
+func _physics_process(delta: float) -> void:
+	if(troop_count <= 40):
+		troop_count += delta*1.2
 "
 
 [node name="Node2D" type="Node2D"]

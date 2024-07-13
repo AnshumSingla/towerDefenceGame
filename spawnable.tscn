@@ -1,0 +1,61 @@
+[gd_scene load_steps=2 format=3 uid="uid://c44v0obgwbgux"]
+
+[sub_resource type="GDScript" id="GDScript_fhias"]
+script/source = "extends Area2D
+
+const comp := preload(\"res://Player/red.tscn\")
+const player := preload(\"res://Player/blue.tscn\")
+@onready var map := $\"../../../../\"
+
+@onready var parent := $\"..\"
+
+func _ready() -> void:
+	$\"../AnimatedSprite2D\".play(\"default\")
+	body_entered.connect(_on_area_2d_body_entered)
+
+func gen_troops(from: StaticBody2D, to: StaticBody2D) -> void:
+	if from.occ != \"blue\": return
+	if from == to: return
+	var toSpawn := int(round(from.tower_grey_count/2))
+	from.tower_grey_count -= toSpawn
+	for i in range(toSpawn):
+		var troop := player.instantiate()
+		troop.global_position = Vector2(from.global_position.x+i, from.global_position.y+10)
+		troop.target = Vector2(to.global_position.x, to.global_position.y+10)
+		troop.TO = to
+		$\"../../..\".add_child(troop)
+
+func _on_area_2d_body_entered(body: Node2D) -> void:
+	if (not body is CharacterBody2D):
+		return
+	if body.TO != parent:
+		return
+	if body.ME == parent.occ:
+		parent.tower_grey_count+=1
+		body.call_deferred(\"queue_free\")
+		return
+	if parent.tower_grey_count == 0:
+		parent.tower_grey_count +=1
+		match parent.occ:
+			\"blue\":
+				map.blue -= 1
+			\"red\":
+				map.red -= 1
+		parent.occ = body.ME
+		match body.ME:
+			\"blue\":
+				map.blue += 1
+			\"red\":
+				map.red += 1
+	else:
+		parent.tower_grey_count -= 1
+		body.call_deferred(\"queue_free\")
+		return
+	$\"../AnimatedSprite2D\".play(parent.occ)
+	body.call_deferred(\"queue_free\")
+"
+
+[node name="Area2D" type="Area2D"]
+collision_layer = 0
+collision_mask = 3
+script = SubResource("GDScript_fhias")

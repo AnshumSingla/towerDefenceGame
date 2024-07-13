@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://bspvtwinenbtf"]
+[gd_scene load_steps=20 format=3 uid="uid://bspvtwinenbtf"]
 
 [ext_resource type="Script" path="res://blue.gd" id="1_cvodv"]
 [ext_resource type="TileSet" uid="uid://0b7h71c6e8sl" path="res://Map.tres" id="1_v7llm"]
@@ -40,6 +40,12 @@ func delete_troop() -> void:
 	
 func check_owner() -> void:
 	pass
+"
+
+[sub_resource type="GDScript" id="GDScript_isjr0"]
+script/source = "extends Node2D
+
+@onready var FROM_TOWER: StaticBody2D = null
 "
 
 [sub_resource type="Shortcut" id="Shortcut_y3uer"]
@@ -100,9 +106,13 @@ position = Vector2(808, 304)
 zoom = Vector2(0.4, 0.4)
 
 [node name="Tower and players" type="Node2D" parent="."]
+script = SubResource("GDScript_isjr0")
+
+[node name="blue_tower" parent="Tower and players" instance=ExtResource("5_hmb32")]
+position = Vector2(-328, 464)
 
 [node name="Farm" type="Node2D" parent="Tower and players"]
-position = Vector2(-120, 320)
+position = Vector2(-104, 8)
 script = ExtResource("6_p2lwe")
 
 [node name="TowerGrey" parent="Tower and players/Farm" instance=ExtResource("6_3l5dv")]
@@ -189,17 +199,16 @@ position = Vector2(1264, 64)
 
 [node name="Player" type="Node2D" parent="Tower and players"]
 
-[node name="blue_tower" parent="Tower and players/Player" instance=ExtResource("5_hmb32")]
-position = Vector2(-456, 160)
-
 [node name="Tower and players_Player#blue_castle" parent="Tower and players/Player" instance=ExtResource("6_f4piv")]
 position = Vector2(-736, 8)
 
 [node name="Troop" parent="." instance=ExtResource("8_5utg3")]
+visible = false
 position = Vector2(-382, 345)
 collision_priority = 2.0
 
 [node name="comp" parent="." instance=ExtResource("4_y1iya")]
+visible = false
 position = Vector2(1999, 362)
 
 [node name="TextureButton" type="TextureButton" parent="."]

@@ -9,10 +9,11 @@ const ME = \"blue\"
 const SPEED := 300.0
 var target := Vector2.ZERO
 @onready var anim := get_node('AnimationPlayer')
+var TO: StaticBody2D = null
 
 func _physics_process(delta: float) -> void:
-	if Input.is_mouse_button_pressed(1): # when click Left mouse button
-		target = get_global_mouse_position()
+	#if Input.is_mouse_button_pressed(1): # when click Left mouse button
+		#target = get_global_mouse_position()
 	velocity = global_position.direction_to(target) * SPEED
 	
 	if velocity.x < 0:
@@ -181,7 +182,7 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_clrfj"]
-radius = 8.0
+radius = 3.0
 
 [sub_resource type="Animation" id="Animation_u1jyf"]
 resource_name = "Attack"
@@ -306,6 +307,7 @@ _data = {
 
 [node name="blue" type="CharacterBody2D"]
 platform_floor_layers = 0
+safe_margin = 0.5
 script = SubResource("GDScript_ig30a")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -316,6 +318,7 @@ animation = &"Idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_clrfj")
+one_way_collision_margin = 2.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
