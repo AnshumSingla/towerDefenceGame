@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 const ME = "red"
-const SPEED = 300.0
+const SPEED = 150.0
 var target := Vector2.ZERO
 @onready var anim := get_node('AnimationPlayer')
 var TO: StaticBody2D = null

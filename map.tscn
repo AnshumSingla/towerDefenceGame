@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://bspvtwinenbtf"]
+[gd_scene load_steps=21 format=3 uid="uid://bspvtwinenbtf"]
 
 [ext_resource type="Script" path="res://blue.gd" id="1_cvodv"]
 [ext_resource type="TileSet" uid="uid://0b7h71c6e8sl" path="res://Map.tres" id="1_v7llm"]
@@ -15,6 +15,7 @@
 [ext_resource type="Texture2D" uid="uid://c8hgtfd23lms7" path="res://Tiny Swords/Tiny Swords (Update 010)/UI/Buttons/Button_Blue.png" id="10_u2s3q"]
 [ext_resource type="Texture2D" uid="uid://2wuvdqi0rdp1" path="res://Tiny Swords/Tiny Swords (Update 010)/UI/Buttons/Button_Blue_Pressed.png" id="11_ujx0f"]
 [ext_resource type="Texture2D" uid="uid://csrt77c72spca" path="res://Tiny Swords/Tiny Swords (Update 010)/UI/Icons/Regular_01.png" id="12_2tkfd"]
+[ext_resource type="AudioStream" uid="uid://dwip3jng5ksmc" path="res://videoplayback.mp3" id="16_g5kxi"]
 
 [sub_resource type="GDScript" id="GDScript_joh6a"]
 script/source = "extends Node2D
@@ -23,12 +24,11 @@ var tower_neutral := \"res://Tiny Swords/Tiny Swords (Update 010)/Factions/Knigh
 var tower_AI := \"res://Tiny Swords/Tiny Swords (Update 010)/Factions/Knights/Buildings/Tower/Tower_Red.png\"
 var blue := 1
 var red := 1
-
-
+@onready var sound := $AudioStreamPlayer2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	
+	sound.play()
 	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -40,6 +40,10 @@ func delete_troop() -> void:
 	
 func check_owner() -> void:
 	pass
+
+func _on_audio_stream_player_2d_finished()->void:
+	sound.play()	
+	pass # Replace with function body.
 "
 
 [sub_resource type="GDScript" id="GDScript_isjr0"]
@@ -182,6 +186,7 @@ position = Vector2(1204, 536)
 position = Vector2(1212, 768)
 
 [node name="Attack_towers" type="Node2D" parent="Tower and players"]
+visible = false
 
 [node name="attack2" parent="Tower and players/Attack_towers" instance=ExtResource("6_3kjpr")]
 position = Vector2(824, -104)
@@ -235,4 +240,10 @@ offset_bottom = 31.952
 texture = ExtResource("12_2tkfd")
 script = SubResource("GDScript_g6lyw")
 
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("16_g5kxi")
+volume_db = -20.0
+autoplay = true
+
 [connection signal="pressed" from="TextureButton" to="TextureButton/TextureRect" method="_on_texture_button_pressed"]
+[connection signal="finished" from="AudioStreamPlayer2D" to="." method="_on_audio_stream_player_2d_finished"]

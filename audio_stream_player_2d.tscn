@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://bdh13j4chibcr"]
+
+[ext_resource type="AudioStream" uid="uid://dwip3jng5ksmc" path="res://videoplayback.mp3" id="1_ekr0t"]
+
+[sub_resource type="GDScript" id="GDScript_of504"]
+script/source = "extends AudioStreamPlayer2D
+var sound := preload(\"res://videoplayback.mp3\")
+
+func _play_music(music: AudioStream, Volume:float =  0.0) ->void:
+	if stream == music:
+		return
+		
+	stream = music
+	volume_db = Volume
+	play()
+	
+func play_music_level()-> void:
+	_play_music(sound)
+"
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D"]
+stream = ExtResource("1_ekr0t")
+autoplay = true
+script = SubResource("GDScript_of504")
