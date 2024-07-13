@@ -22,10 +22,10 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed(\"ui_accept\") :
 		anim.play('Attack')
 	
-	if global_position.distance_to(target) < 10:
+	if global_position.distance_to(target) < 20:
 		anim.play('Idle')
 		velocity = Vector2.ZERO
-	elif global_position.distance_to(target) > 5:
+	elif global_position.distance_to(target) > 20:
 		anim.play('Run')
 	#else:
 		#anim.play(\"Idle\")
