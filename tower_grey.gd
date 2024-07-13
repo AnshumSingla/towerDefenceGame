@@ -13,7 +13,6 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	
 	pass
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
@@ -21,7 +20,7 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 		return
 	if body.ME == occ:
 		tower_grey_count+=1
-		body.queue_free()
+		body.call_deferred("queue_free")
 		return
 	if tower_grey_count == 0:
 		match occ:
@@ -37,7 +36,7 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 				map.red += 1
 	else:
 		tower_grey_count -= 1
+		body.call_deferred("queue_free")
 		return
 	towAnim.play(occ)
-	body.queue_free()
-	
+	body.call_deferred("queue_free")
