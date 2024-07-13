@@ -116,7 +116,7 @@ libraries = {
 position = Vector2(110, -288)
 sprite_frames = SubResource("SpriteFrames_6tyln")
 animation = &"blue"
-frame_progress = 0.0573289
+frame_progress = 0.0318031
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(112, -224)

@@ -78,6 +78,7 @@ ignore_texture_size = true
 stretch_mode = 6
 
 [node name="Label" type="Label" parent="Node2D/Start2"]
+layout_mode = 0
 offset_left = 4.44445
 offset_top = 1.92308
 offset_right = 167.444

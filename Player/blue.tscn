@@ -1,15 +1,16 @@
 [gd_scene load_steps=28 format=3 uid="uid://dwxxbhglnw4m0"]
 
-[ext_resource type="Texture2D" uid="uid://bj3ljbibrcv5p" path="res://Tiny Swords/Tiny Swords (Update 010)/Factions/Knights/Troops/Warrior/Blue/Warrior_Blue.png" id="1_qbr8t"]
+[ext_resource type="Texture2D" uid="uid://c3vqh0epgrm3h" path="res://Tiny Swords/Tiny Swords (Update 010)/Factions/Knights/Troops/Warrior/Blue/Warrior_Blue.png" id="1_mv68c"]
 
 [sub_resource type="GDScript" id="GDScript_ig30a"]
 script/source = "extends CharacterBody2D
 
-const SPEED = 300.0
-var target = Vector2.ZERO
-@onready var anim = get_node('AnimationPlayer')
+const ME = \"blue\"
+const SPEED := 300.0
+var target := Vector2.ZERO
+@onready var anim := get_node('AnimationPlayer')
 
-func _physics_process(delta):
+func _physics_process(delta: float) -> void:
 	if Input.is_mouse_button_pressed(1): # when click Left mouse button
 		target = get_global_mouse_position()
 	velocity = global_position.direction_to(target) * SPEED
@@ -27,89 +28,82 @@ func _physics_process(delta):
 		velocity = Vector2.ZERO
 	elif global_position.distance_to(target) > 20:
 		anim.play('Run')
-	#else:
-		#anim.play(\"Idle\")
-
 	move_and_slide()
-
-
-
-
 "
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_clrfj"]
 radius = 8.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fpmg2"]
-atlas = ExtResource("1_qbr8t")
+atlas = ExtResource("1_mv68c")
 region = Rect2(0, 576, 192, 192)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jrh1s"]
-atlas = ExtResource("1_qbr8t")
+atlas = ExtResource("1_mv68c")
 region = Rect2(192, 576, 192, 192)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dneaw"]
-atlas = ExtResource("1_qbr8t")
+atlas = ExtResource("1_mv68c")
 region = Rect2(384, 576, 192, 192)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mqtr1"]
-atlas = ExtResource("1_qbr8t")
+atlas = ExtResource("1_mv68c")
 region = Rect2(576, 576, 192, 192)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yrhv0"]
-atlas = ExtResource("1_qbr8t")
+atlas = ExtResource("1_mv68c")
 region = Rect2(768, 576, 192, 192)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_foukt"]
-atlas = ExtResource("1_qbr8t")
+atlas = ExtResource("1_mv68c")
 region = Rect2(960, 576, 192, 192)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fj2sy"]
-atlas = ExtResource("1_qbr8t")
+atlas = ExtResource("1_mv68c")
 region = Rect2(0, 0, 192, 192)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_do7hv"]
-atlas = ExtResource("1_qbr8t")
+atlas = ExtResource("1_mv68c")
 region = Rect2(192, 0, 192, 192)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_o4pkq"]
-atlas = ExtResource("1_qbr8t")
+atlas = ExtResource("1_mv68c")
 region = Rect2(384, 0, 192, 192)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2wchr"]
-atlas = ExtResource("1_qbr8t")
+atlas = ExtResource("1_mv68c")
 region = Rect2(576, 0, 192, 192)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_htlcp"]
-atlas = ExtResource("1_qbr8t")
+atlas = ExtResource("1_mv68c")
 region = Rect2(768, 0, 192, 192)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vb5go"]
-atlas = ExtResource("1_qbr8t")
+atlas = ExtResource("1_mv68c")
 region = Rect2(960, 0, 192, 192)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bv450"]
-atlas = ExtResource("1_qbr8t")
+atlas = ExtResource("1_mv68c")
 region = Rect2(0, 192, 192, 192)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1yj5l"]
-atlas = ExtResource("1_qbr8t")
+atlas = ExtResource("1_mv68c")
 region = Rect2(192, 192, 192, 192)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jjbnt"]
-atlas = ExtResource("1_qbr8t")
+atlas = ExtResource("1_mv68c")
 region = Rect2(384, 192, 192, 192)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pr7u6"]
-atlas = ExtResource("1_qbr8t")
+atlas = ExtResource("1_mv68c")
 region = Rect2(576, 192, 192, 192)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cdl6x"]
-atlas = ExtResource("1_qbr8t")
+atlas = ExtResource("1_mv68c")
 region = Rect2(768, 192, 192, 192)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cftyc"]
-atlas = ExtResource("1_qbr8t")
+atlas = ExtResource("1_mv68c")
 region = Rect2(960, 192, 192, 192)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_660bp"]
@@ -310,7 +304,7 @@ _data = {
 "Run": SubResource("Animation_tmkqp")
 }
 
-[node name="Troop" type="CharacterBody2D"]
+[node name="blue" type="CharacterBody2D"]
 platform_floor_layers = 0
 script = SubResource("GDScript_ig30a")
 

@@ -1,16 +1,12 @@
 extends CharacterBody2D
 
+const ME = "red"
 const SPEED = 300.0
-var target = Vector2.ZERO
-@onready var anim = get_node('AnimationPlayer')
-var tow
+var target := Vector2.ZERO
+@onready var anim := get_node('AnimationPlayer')
+var tow: StaticBody2D
 
-func _physics_process(delta):
-	tow = get_node("../Tower and players/Farm/TowerGrey10")#Tower and players/Farm/TowerGrey
-	target = tow.position
-	
-	 # when click Left mouse button
-	
+func _physics_process(delta: float) -> void:
 	velocity = global_position.direction_to(target) * SPEED
 	get_node("AnimatedSprite2D").flip_h = true
 	if velocity.x < 0:
@@ -26,11 +22,4 @@ func _physics_process(delta):
 		velocity = Vector2.ZERO
 	elif global_position.distance_to(target) > 5:
 		anim.play('Run')
-	#else:
-		#anim.play("Idle")
-
 	move_and_slide()
-
-
-
-
