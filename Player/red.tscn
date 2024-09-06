@@ -3,9 +3,6 @@
 [ext_resource type="Script" path="res://Player/comp.gd" id="1_fn3a5"]
 [ext_resource type="Texture2D" uid="uid://db3ayhpgk76a8" path="res://Tiny Swords/Tiny Swords (Update 010)/Factions/Knights/Troops/Warrior/Red/Warrior_Red.png" id="2_mhpuw"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_sn4mj"]
-radius = 8.0
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_mbs2c"]
 atlas = ExtResource("2_mhpuw")
 region = Rect2(0, 768, 192, 192)
@@ -155,6 +152,9 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_sn4mj"]
+radius = 3.0
+
 [sub_resource type="Animation" id="Animation_u1jyf"]
 resource_name = "Attack"
 length = 0.6
@@ -277,20 +277,26 @@ _data = {
 }
 
 [node name="red" type="CharacterBody2D"]
-collision_layer = 2
-collision_mask = 2
+collision_mask = 3
+motion_mode = 1
+wall_min_slide_angle = 0.0
 script = ExtResource("1_fn3a5")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(3, 0)
+scale = Vector2(1.02702, 0.991863)
+sprite_frames = SubResource("SpriteFrames_rtyp1")
+animation = &"Idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_sn4mj")
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(1, 0.999996)
-scale = Vector2(1.02865, 1.02865)
-sprite_frames = SubResource("SpriteFrames_rtyp1")
-animation = &"Idle"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_juwie")
 }
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.05

@@ -10,8 +10,9 @@ var troop_count: float = 0
 
 func _ready() -> void:
 	playerTower.occ = \"blue\"
-	playerTower.tower_grey_count = 0
-	$\"StaticBody2D2/AnimatedSprite2D\".play(\"blue\")
+	playerTower.tower_grey_count = 10
+
+	$\"StaticBody2D2/AnimatedSprite2D\".play(playerTower.occ)
 "
 
 [node name="Node2D" type="Node2D"]

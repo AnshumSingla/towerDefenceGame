@@ -11,4 +11,4 @@ func _process(delta:float) -> void:
 func _physics_process(delta: float) -> void:
 	if $"..".occ != "grey":
 		if($"..".tower_grey_count <= 40):
-			$"..".tower_grey_count += delta*1.2
+			$"..".tower_grey_count += delta/1.2

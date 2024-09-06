@@ -1,0 +1,22 @@
+[gd_resource type="BehaviorTree" load_steps=7 format=3 uid="uid://dw0xvnw72khbe"]
+
+[ext_resource type="Script" path="res://AI/Tasks/Tower_Finder.gd" id="1_ju770"]
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_mgxyo"]
+
+[sub_resource type="BTConsolePrint" id="BTConsolePrint_myyr7"]
+text = "hi"
+
+[sub_resource type="BTAction" id="BTAction_48d1p"]
+script = ExtResource("1_ju770")
+
+[sub_resource type="BTSequence" id="BTSequence_7sb0k"]
+custom_name = "farm"
+children = [SubResource("BTConsolePrint_myyr7"), SubResource("BTAction_48d1p")]
+
+[sub_resource type="BTSelector" id="BTSelector_ofuib"]
+children = [SubResource("BTSequence_7sb0k")]
+
+[resource]
+blackboard_plan = SubResource("BlackboardPlan_mgxyo")
+root_task = SubResource("BTSelector_ofuib")

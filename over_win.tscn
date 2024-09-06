@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://b0p0a4xmlifas"]
+
+[ext_resource type="Texture2D" uid="uid://0w55t6tlpm6l" path="res://Tiny Swords/Tiny Swords (Update 010)/UI/Banners/Banner_Horizontal.png" id="1_wwht0"]
+[ext_resource type="FontFile" uid="uid://d3frb61wemimw" path="res://Tiny Swords/Tiny Swords (Update 010)/VTKS DURA 3d.ttf" id="2_ci658"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="BannerHorizontal" type="Sprite2D" parent="."]
+scale = Vector2(6, 3.33333)
+texture = ExtResource("1_wwht0")
+
+[node name="Label" type="Label" parent="."]
+offset_left = -312.0
+offset_top = -152.0
+offset_right = 304.0
+offset_bottom = 184.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_ci658")
+theme_override_font_sizes/font_size = 70
+text = "Epic  Win!!!"
+horizontal_alignment = 1
+vertical_alignment = 1

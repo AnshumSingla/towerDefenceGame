@@ -1,0 +1,119 @@
+[gd_scene load_steps=12 format=3 uid="uid://crvl7t3cugywv"]
+
+[ext_resource type="Texture2D" uid="uid://k3sonnhornx6" path="res://Tiny Swords/Tiny Swords (Update 010)/Resources/Sheep/HappySheep_Bouncing.png" id="1_gn5fj"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lyr2q"]
+atlas = ExtResource("1_gn5fj")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b1f3g"]
+atlas = ExtResource("1_gn5fj")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_llbo0"]
+atlas = ExtResource("1_gn5fj")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jlir6"]
+atlas = ExtResource("1_gn5fj")
+region = Rect2(384, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vpd4t"]
+atlas = ExtResource("1_gn5fj")
+region = Rect2(512, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yc221"]
+atlas = ExtResource("1_gn5fj")
+region = Rect2(640, 0, 128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jn271"]
+resource_name = "bouncing"
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lyr2q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b1f3g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_llbo0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jlir6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vpd4t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yc221")
+}],
+"loop": true,
+"name": &"bouncig",
+"speed": 6.0
+}]
+
+[sub_resource type="Animation" id="Animation_33vie"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="Animation" id="Animation_0no37"]
+resource_name = "boucning"
+length = 0.55
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"bouncig"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jbj50"]
+_data = {
+"RESET": SubResource("Animation_33vie"),
+"boucning": SubResource("Animation_0no37")
+}
+
+[node name="Node2D" type="Node2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -1.90735e-06)
+scale = Vector2(1.6875, 1.375)
+sprite_frames = SubResource("SpriteFrames_jn271")
+animation = &"bouncig"
+frame = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_jbj50")
+}
+autoplay = "boucning"

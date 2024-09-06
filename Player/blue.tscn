@@ -6,30 +6,42 @@
 script/source = "extends CharacterBody2D
 
 const ME = \"blue\"
-const SPEED := 150.0
-var target := Vector2.ZERO
+const SPEED = 150.0
+var target: Vector2
 @onready var anim := get_node('AnimationPlayer')
+@onready var navigation_agent_2d := $NavigationAgent2D
 var TO: StaticBody2D = null
 
+func _ready() -> void:
+	pass
+
+func initialize() -> void:
+	if target:
+		$NavigationAgent2D.target_position = target
+
 func _physics_process(delta: float) -> void:
-	#if Input.is_mouse_button_pressed(1): # when click Left mouse button
-		#target = get_global_mouse_position()
-	velocity = global_position.direction_to(target) * SPEED
-	
-	if velocity.x < 0:
+	if not TO:
+		return
+	var dir: Vector2 = $NavigationAgent2D.get_next_path_position() - global_position
+	dir = dir.normalized()
+
+	if dir != Vector2.ZERO:
+		velocity = velocity.lerp(dir * SPEED, 1)
 		get_node(\"AnimatedSprite2D\").flip_h = true
-	else:
-		get_node(\"AnimatedSprite2D\").flip_h = false
-	
-	if Input.is_action_just_pressed(\"ui_accept\") :
-		anim.play('Attack')
-	
-	if global_position.distance_to(target) < 20:
+		if dir.x < 0:
+			get_node(\"AnimatedSprite2D\").flip_h = true
+		else:
+			get_node(\"AnimatedSprite2D\").flip_h = false
+
+	if self.position.distance_to(dir) < 20:
 		anim.play('Idle')
-		velocity = Vector2.ZERO
-	elif global_position.distance_to(target) > 20:
+	else:
 		anim.play('Run')
-	move_and_collide(velocity*delta)
+
+	move_and_slide()
+
+func _on_timer_timeout()->void:
+	navigation_agent_2d.target_position = target
 "
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fpmg2"]
@@ -211,6 +223,18 @@ tracks/1/keys = {
 "update": 1,
 "values": [0, 1, 2, 3, 4, 5]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimationPlayer:root_motion_track")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [NodePath("")]
+}
 
 [sub_resource type="Animation" id="Animation_unmyk"]
 resource_name = "Idle"
@@ -267,6 +291,18 @@ tracks/1/keys = {
 "update": 1,
 "values": [0]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimationPlayer:root_motion_track")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [NodePath("")]
+}
 
 [sub_resource type="Animation" id="Animation_tmkqp"]
 resource_name = "Run"
@@ -306,13 +342,15 @@ _data = {
 }
 
 [node name="blue" type="CharacterBody2D"]
+motion_mode = 1
+wall_min_slide_angle = 0.0
 platform_floor_layers = 0
 safe_margin = 0.5
 script = SubResource("GDScript_ig30a")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(1, 0.999996)
-scale = Vector2(1.02865, 1.02865)
+position = Vector2(-0.999996, 0.999996)
+scale = Vector2(1.04362, 0.973308)
 sprite_frames = SubResource("SpriteFrames_660bp")
 animation = &"Idle"
 
@@ -324,3 +362,15 @@ one_way_collision_margin = 2.0
 libraries = {
 "": SubResource("AnimationLibrary_juwie")
 }
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+avoidance_enabled = true
+debug_enabled = true
+debug_path_custom_color = Color(0.788235, 0.317647, 0, 1)
+debug_path_custom_point_size = 12.65
+debug_path_custom_line_width = 2.09
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.05
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

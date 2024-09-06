@@ -9,11 +9,9 @@ height = 82.9092
 [node name="StaticBody2D" type="StaticBody2D"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(488, 184)
 rotation = 1.5708
 scale = Vector2(5.61991, 3.08772)
 shape = SubResource("CapsuleShape2D_jtnck")
 
 [node name="CastleRed" type="Sprite2D" parent="."]
-position = Vector2(488, 112)
 texture = ExtResource("1_wwdsx")

@@ -27,7 +27,6 @@ func _input(event: InputEvent) -> void:
 				parent.FROM_TOWER = $\"..\"
 			elif  event.is_released():
 				$\"../spawnable\".gen_troops(parent.FROM_TOWER, $\"..\")
-
 "
 
 [node name="Area2D" type="Area2D"]

@@ -1,0 +1,16 @@
+[gd_scene load_steps=5 format=3 uid="uid://dgo74svvs44mk"]
+
+[ext_resource type="Script" path="res://Player/enemy_tower.gd" id="1_itea4"]
+[ext_resource type="PackedScene" uid="uid://bh0lb5yxfgvu8" path="res://tower_grey.tscn" id="1_q3xv0"]
+[ext_resource type="BehaviorTree" uid="uid://dw0xvnw72khbe" path="res://AI/Trees/ai.tres" id="3_ib1g6"]
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_72bic"]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_itea4")
+
+[node name="StaticBody2D2" parent="." instance=ExtResource("1_q3xv0")]
+
+[node name="BTPlayer" type="BTPlayer" parent="."]
+behavior_tree = ExtResource("3_ib1g6")
+blackboard_plan = SubResource("BlackboardPlan_72bic")

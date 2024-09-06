@@ -8,4 +8,4 @@ func _process(delta: float) -> void:
 
 func _physics_process(delta: float) -> void:
 	if(troop_count <= 40):
-		troop_count += delta*1.2
+		troop_count += delta/1.2
