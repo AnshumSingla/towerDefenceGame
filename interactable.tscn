@@ -1,15 +1,51 @@
 [gd_scene load_steps=2 format=3 uid="uid://di1bq5tfcrda8"]
 
 [sub_resource type="GDScript" id="GDScript_lysgb"]
-script/source = "extends Area2D
+script/source = "#extends Area2D
+#var is_active := false
+#
+## Called when the node enters the scene tree for the first time.
+#func _ready() -> void:
+	#mouse_exited.connect(_on_mouse_exited)
+	#mouse_entered.connect(_on_mouse_entered)
+#
+## Called every frame. 'delta' is the elapsed time since the previous frame.
+#func _process(delta: float) -> void:
+	#pass
+#
+#func _on_mouse_entered() -> void:
+	#is_active = true
+#
+#func _on_mouse_exited() -> void:
+	#is_active = false
+#
+#func _input(event: InputEvent) -> void:
+	#if is_active and event is InputEventMouseButton:
+		#if event.button_index == MOUSE_BUTTON_LEFT:
+			#var parent := $\"../../..\"
+			#if event.is_pressed():
+				#parent.FROM_TOWER = $\"..\"
+			#elif  event.is_released():
+				#$\"../spawnable\".gen_troops(parent.FROM_TOWER, $\"..\")
+	#if event is InputEventKey:
+		#if event.keycode == KEY_F:
+			#var parent := $\"../../..\"
+			#if parent.occ == \"red\":
+				#parent.FROM_TOWER = $\"..\"
+				#$\"../spawnable\".gen_troops(parent.FROM_TOWER, $\"..\")
+			#
+extends Area2D
+
 var is_active := false
+var red_towers := []
+var neutral_towers := []
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	#print()
 	mouse_exited.connect(_on_mouse_exited)
 	mouse_entered.connect(_on_mouse_entered)
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
 
@@ -22,11 +58,33 @@ func _on_mouse_exited() -> void:
 func _input(event: InputEvent) -> void:
 	if is_active and event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT:
-			var parent := $\"../../..\"
+			var parent := $\"../../../..\"
 			if event.is_pressed():
 				parent.FROM_TOWER = $\"..\"
-			elif  event.is_released():
-				$\"../spawnable\".gen_troops(parent.FROM_TOWER, $\"..\")
+			elif event.is_released():
+				$\"../spawnable\".gen_troops($\"../../../..\".FROM_TOWER, $\"..\")
+
+	#if event is InputEventKey:
+		#if event.keycode == KEY_F:
+			#var all_towers := $\"../../..\"
+			#red_towers.append($\"Tower and players/Farm/red_tower\")
+			#for tower in $\"../../../Grey\".get_children():
+				#if $\"..\".occ == \"red\":
+					#red_towers.append(tower)
+			#for tower in $\"../../../Grey\".get_children():
+				#if $\"..\".occ == \"grey\":
+					#neutral_towers.append(tower)
+			##print(\"F is pressed\")
+			#print(\"red_towers: \", red_towers)
+			#if red_towers.size() > 0 and neutral_towers.size() > 0:
+				## Select a random red tower
+				#var random_red_tower :StaticBody2D = red_towers[randi() % red_towers.size()]
+				## Select a random neutral tower
+				#var random_neutral_tower :StaticBody2D = neutral_towers[randi() % neutral_towers.size()]
+#
+				## Assign the red tower to attack the neutral tower
+				#random_red_tower.FROM_TOWER = random_red_tower
+				#$\"../spawnable\".gen_troops(random_red_tower, random_neutral_tower)
 "
 
 [node name="Area2D" type="Area2D"]

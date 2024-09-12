@@ -7,7 +7,6 @@ var target: Vector2
 @onready var navigation_agent_2d := $NavigationAgent2D
 var TO: StaticBody2D = null
 
-
 func _ready() -> void:
 	pass
 
