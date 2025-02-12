@@ -48,6 +48,10 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	pass
+	
+func _p2(delta: float) -> void:
+	for i in randi_range(1,4):
+		$\"../spawnable\".r_random()
 
 func _on_mouse_entered() -> void:
 	is_active = true

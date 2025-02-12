@@ -8,10 +8,12 @@ const player := preload(\"res://Player/blue.tscn\")
 @onready var map := $\"../../../../../\"
 var troop := comp.instantiate()
 @onready var parent := $\"..\"
+var red_towers := []
 
 func _ready() -> void:
 	$\"../AnimatedSprite2D\".play(\"default\")
 	body_entered.connect(_on_area_2d_body_entered)
+	red_towers = $\"../..\".get_children()
 
 func gen_troops(from: StaticBody2D, to: StaticBody2D) -> void:
 	var red_towers := []
@@ -33,18 +35,36 @@ func gen_troops(from: StaticBody2D, to: StaticBody2D) -> void:
 		from.tower_grey_count -= toSpawn
 		for i in range(toSpawn):
 			troop = player.instantiate()
-			troop.global_position = Vector2(from.global_position.x+i+60, from.global_position.y+60)
-			troop.target = Vector2(to.global_position.x+60, to.global_position.y+60)
+			troop.global_position = Vector2(from.global_position.x+i, from.global_position.y)
+			troop.target = Vector2(to.global_position.x, to.global_position.y)
 			troop.TO = to
 			$\"../../..\".add_child(troop)
 			troop.initialize()
 
-		# Declare the variable type explicitly
-		var random_red_tower_index: int = randi_range(5, 9)
+		#var random_red_tower_index: int = randi_range(0, 9)
+		#var random_red_tower: StaticBody2D = red_towers[random_red_tower_index]
+		#var target_position: Vector2 = random_red_tower.global_position
+		#toSpawn = int(round($\"../../../red_tower\".enemyTower.tower_grey_count/2))
+		#$\"../../../red_tower\".enemyTower.tower_grey_count -= toSpawn
+		#for i in range(toSpawn):
+			#troop = comp.instantiate()
+			#troop.global_position = Vector2($\"../../../red_tower\".global_position.x+i, $\"../../../red_tower\".global_position.y+10)
+			#troop.target = Vector2(target_position.x, target_position.y+10) # Use the single target position
+			#troop.TO = random_red_tower
+			#$\"../../..\".add_child(troop)
+			#troop.initialize()
+
+func r_random() -> void:
+	red_towers = $\"../..\".get_children()
+	print($\"../..\")
+	if($\"..\".occ == \"red\"):
+		red_towers.append($\"..\")
+	var random_red_tower_index: int = randi_range(0, 9)
+	if red_towers.size()>=random_red_tower_index:
 		var random_red_tower: StaticBody2D = red_towers[random_red_tower_index]
 		var target_position: Vector2 = random_red_tower.global_position
-		#toSpawn = int(round($\"../../../red_tower\".tower_grey_count/2))
-		#$\"../../../red_tower\".tower_grey_count -= toSpawn
+		var toSpawn := int(round($\"../../../red_tower\".enemyTower.tower_grey_count/2))
+		$\"../../../red_tower\".enemyTower.tower_grey_count -= toSpawn
 		for i in range(toSpawn):
 			troop = comp.instantiate()
 			troop.global_position = Vector2($\"../../../red_tower\".global_position.x+i, $\"../../../red_tower\".global_position.y+10)
@@ -52,23 +72,6 @@ func gen_troops(from: StaticBody2D, to: StaticBody2D) -> void:
 			troop.TO = random_red_tower
 			$\"../../..\".add_child(troop)
 			troop.initialize()
-
-#func r_random() -> void:
-	#var red_towers := []
-	#red_towers = $\"../..\".get_children()
-	#var random_red_tower_index: int = randi_range(5, 9)
-	#var random_red_tower: StaticBody2D = red_towers[random_red_tower_index]
-	#var target_position: Vector2 = random_red_tower.global_position
-	#var toSpawn := int(round(random_red_tower.tower_grey_count/2))
-	##toSpawn = int(round($\"../../../red_tower\".tower_grey_count/2))
-	##$\"../../../red_tower\".tower_grey_count -= toSpawn
-	#for i in range(toSpawn):
-		#troop = comp.instantiate()
-		#troop.global_position = Vector2($\"../../../red_tower\".global_position.x+i, $\"../../../red_tower\".global_position.y+10)
-		#troop.target = Vector2(target_position.x, target_position.y+10) # Use the single target position
-		#troop.TO = random_red_tower
-		#$\"../../..\".add_child(troop)
-		troop.initialize()
 	
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if (not body is CharacterBody2D):
@@ -112,10 +115,18 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 		return
 	$\"../AnimatedSprite2D\".play(parent.occ)
 	body.call_deferred(\"queue_free\")
-	
+
+func _on_timer_timeout() -> void:
+	r_random()
 "
 
 [node name="Area2D" type="Area2D"]
 collision_layer = 0
 collision_mask = 3
 script = SubResource("GDScript_fhias")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 8.0
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
